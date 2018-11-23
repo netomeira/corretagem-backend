@@ -1,4 +1,4 @@
-package com.okta.developer.demo;
+package com.imobiliaria.backend.domain;
 
 import lombok.*;
 

@@ -1,10 +1,13 @@
-package com.okta.developer.demo;
+package com.imobiliaria.backend.controller;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.Collection;
 import java.util.stream.Collectors;
+
+import com.imobiliaria.backend.domain.Car;
+import com.imobiliaria.backend.repository.CarRepository;
 
 @RestController
 class CoolCarController {

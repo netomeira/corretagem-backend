@@ -1,9 +1,15 @@
 package com.imobiliaria.backend;
 
+import java.util.stream.Stream;
+
+import com.imobiliaria.backend.domain.Car;
+import com.imobiliaria.backend.repository.CarRepository;
+
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
-@EnableResourceServer
 @SpringBootApplication
 public class BackendApplication {
 
@@ -15,26 +21,12 @@ public class BackendApplication {
     ApplicationRunner init(CarRepository repository) {
         return args -> {
             Stream.of("Ferrari", "Jaguar", "Porsche", "Lamborghini", "Bugatti",
-                    "AMC Gremlin", "Triumph Stag", "Ford Pinto", "Yugo GV").forEach(name -> {
+                      "AMC Gremlin", "Triumph Stag", "Ford Pinto", "Yugo GV").forEach(name -> {
                 Car car = new Car();
                 car.setName(name);
                 repository.save(car);
             });
             repository.findAll().forEach(System.out::println);
         };
-    }
-
-    @Bean
-    public FilterRegistrationBean<CorsFilter> simpleCorsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
-        config.setAllowedMethods(Collections.singletonList("*"));
-        config.setAllowedHeaders(Collections.singletonList("*"));
-        source.registerCorsConfiguration("/**", config);
-        FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>(new CorsFilter(source));
-        bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
-        return bean;
     }
 }
